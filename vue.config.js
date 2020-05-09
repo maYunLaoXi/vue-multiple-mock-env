@@ -22,14 +22,24 @@ module.exports = {
       warnings: false,
       errors: true
     },
-    disableHostCheck: true
+    disableHostCheck: true,
+    proxy: {
+      '/wx/': {
+        target: 'https://api.weixin.qq.com/',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/wx': '/'
+        }
+      }
+    }
   },
   configureWebpack: {
     // html的title
     name,
     resolve: {
       alias: {
-        '@': resolve('src')
+        '@': resolve('src'),
+        'api': resolve('src/api/index.js')
       }
     }
   },

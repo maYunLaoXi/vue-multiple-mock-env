@@ -1,11 +1,13 @@
 <template>
   <div class="mas-container">
     <div @click="chooseImage">chooseImage</div>
+    <div @click="testWx">getWxAccess_token</div>
     <div v-for="item in items" :key="item.index" :style="{ height: item.height }" class="mas-item">{{ item.height }} ： {{ item.index }}</div>
   </div>
 </template>
 <script>
 import { initWx } from '@/utils/jssdk'
+import { getWxAccessToken } from 'api'
 const wx = window.wx
 
 export default {
@@ -30,7 +32,7 @@ export default {
         wx.checkJsApi({
           jsApiList: ['chooseImage'],
           success: res => {
-            debugger
+            // debugger
           }
         })
       },
@@ -41,6 +43,15 @@ export default {
     })
   },
   methods: {
+    getWxAccessToken,
+    testWx() {
+      this.getWxAccessToken().then(res => {
+        debugger
+      // eslint-disable-next-line handle-callback-err
+      }).catch(err => {
+        debugger
+      })
+    },
     chooseImage() {
       wx.chooseImage({
         count: 2,

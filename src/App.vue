@@ -1,7 +1,6 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="vue-template by maYunLaoXi"/>
+    <HelloWorld msg="vue-template by maYunLaoXi" />
   </div>
 </template>
 
