@@ -28,7 +28,14 @@ module.exports = {
         target: 'https://api.weixin.qq.com/',
         changeOrigin: true,
         pathRewrite: {
-          '^/wx': '/'
+          '^/wx': ''
+        }
+      },
+      '/node/': {
+        target: 'http://nodetest.ngrok2.xiaomiqiu.cn',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/node': ''
         }
       }
     }

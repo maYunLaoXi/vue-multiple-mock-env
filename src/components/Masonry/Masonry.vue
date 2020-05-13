@@ -27,12 +27,17 @@ export default {
     }
     // 初始化JSSDK
     initWx({
+      jsApiList: ['chooseImage', 'updateTimelineShareData'],
       success: () => {
         console.log('JSSDK调用成功')
-        wx.checkJsApi({
-          jsApiList: ['chooseImage'],
-          success: res => {
-            // debugger
+        wx.updateTimelineShareData({
+          title: 'wxjssdk', // 分享标题
+          desc: 'this is a test for wxjssdk', // 分享描述
+          link: 'http://forwxtest.ngrok2.xiaomiqiu.cn/', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+          imgUrl: '"http://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTIDOQfYgKljBOrdSaWC7BlwnPKU3becE8RV6hnUOYUAoQgibbrWXF0JMUfm6UIia86mJdmLSibpnkQew/132"', // 分享图标
+          success: () => {
+            // 设置成功
+            console.log('share success')
           }
         })
       },
@@ -53,6 +58,12 @@ export default {
       })
     },
     chooseImage() {
+      // wx.checkJsApi({
+      //   jsApiList: ['chooseImage', 'updateTimelineShareData'],
+      //   success: res => {
+      //     debugger
+      //   }
+      // })
       wx.chooseImage({
         count: 2,
         success: _ => {

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div class="is-wx">{{ wkwebview }}</div>
     <button @click="getAccessToken">获取accessToken</button>
     <button @click="doCreateMenu">新增菜单</button>
     <br>
@@ -13,10 +14,21 @@
       <div class="nickname">{{ userInfo.nickname }}</div>
       <div class="location">{{ userInfo.country + ':' + userInfo.province + ':' + userInfo.city }}</div>
     </div>
+    <div class="get-signature">
+      <button @click="goGetSignature">get signature</button>
+      <div>
+        appid: {{ signature.appid }},<br>
+        jsapi_ticket: {{ signature.jsapi_ticket }}<br>
+        nonceStr: {{ signature.nonceStr }}<br>
+        signature: {{ signature.signature }}<br>
+        timestamp: {{ signature.timestamp }}<br>
+        url: {{ signature.url }}<br>
+      </div>
+    </div>
   </div>
 </template>
 <script>
-import { getWxAccessToken, createMenu, getUserAccessToken, getUserInfo } from 'api'
+import { getWxAccessToken, createMenu, getUserAccessToken, getUserInfo, getSignature } from 'api'
 import Cookie from 'js-cookie'
 import config from '@/config'
 
@@ -24,6 +36,7 @@ export default {
   name: 'Wx',
   data() {
     return {
+      wkwebview: window.__wxjs_is_wkwebview ? 'ios-wkwebview' : 'not ios',
       menu: {
         'button': [
           {
@@ -50,8 +63,12 @@ export default {
       },
       scopeUrl: `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${config.appId}&redirect_uri=${encodeURIComponent('http://nodetest.ngrok2.xiaomiqiu.cn/message')}&response_type=code&scope=snsapi_base&state=123#wechat_redirect`,
       scopeUrl2: `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${config.appId}&redirect_uri=${encodeURIComponent('http://nodetest.ngrok2.xiaomiqiu.cn/message')}&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect`,
-      userInfo: null
+      userInfo: null,
+      signature: {}
     }
+  },
+  mounted() {
+
   },
   methods: {
     //  获取access_token
@@ -79,6 +96,13 @@ export default {
       getUserInfo().then(res => {
         console.log(res)
         this.userInfo = res.data
+      })
+    },
+    goGetSignature() {
+      getSignature({
+        url: 'http://forwxtest.ngrok2.xiaomiqiu.cn'
+      }).then(res => {
+        this.signature = res.data
       })
     }
   }

@@ -28,18 +28,19 @@
       <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
     </ul>
     <wx />
-    <hr >
-    <masonry />
+    <masonry v-if="false" />
+    <wx-sdk />
   </div>
 </template>
 
 <script>
 import Masonry from './Masonry/Masonry'
 import Wx from './wx/index'
+import WxSdk from './wx/wx-sdk'
 
 export default {
   name: 'HelloWorld',
-  components: { Masonry, Wx },
+  components: { Masonry, Wx, WxSdk },
   props: {
     msg: String
   },
